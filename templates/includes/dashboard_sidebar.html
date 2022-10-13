@@ -1,0 +1,13 @@
+
+	<aside class="col-md-3">
+		<!--   SIDEBAR   -->
+		<ul class="list-group">
+			<a class="list-group-item" {% if '/accounts/' == request.path %} style="background-color: #cad2c5;" {%endif%} href="{% url 'dashboard' %}">Dashboard </a>
+			<a class="list-group-item" {% if '/my_books_ordered/' in request.path %} style="background-color: #cad2c5;" {%endif%} href="{% url 'my_books_ordered' %}"> My All Issued Book </a>
+			<a class="list-group-item" {% if '/my_books_returned/' in request.path %} style="background-color: #cad2c5;" {%endif%} href="{% url 'my_books_returned' %}"> All Returned Book </a>
+			<a class="list-group-item" {% if '/my_books_returned_transaction/' in request.path %} style="background-color: #cad2c5;" {%endif%} href="{% url 'my_books_returned_transaction' %}"> All Transaction </a>
+			<a class="list-group-item" {% if '/edit_profile/' in request.path %} style="background-color: #cad2c5;"  {%endif%} href="{% url 'edit_profile'%}"> Edit Profile</a>
+      <a class="list-group-item" {% if '/view_profile/' in request.path %} style="background-color: #cad2c5;" {%endif%} href="{%url 'view_profile'%}"> View Profile</a>
+			<a class="list-group-item" {% if '/change_password/' in request.path %} style="background-color: #cad2c5;" {%endif%} href="{%url 'change_password'%}"> Change Password </a>
+		</ul>
+			</aside>

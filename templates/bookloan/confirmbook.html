@@ -1,0 +1,134 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block content%}
+
+<!--
+<html>
+<head>
+	<script src="{%static 'js/jquery-2.0.0.min.js'%}" type="text/javascript"></script>
+
+	<link href="{%static 'css/ui.css'%}" rel="stylesheet" type="text/css" />
+
+
+	<link
+		href="{%static 'css/responsive.css'%}"
+		rel="stylesheet"
+		media="only screen and (max-width: 1200px)"
+	/>
+
+	<script src="{%static 'js/script.js'%}" type="text/javascript"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+		});
+	</script>
+</head> -->
+
+<section class="section-content padding-y bg" style="margin-top:100px">
+<div class="container">
+
+<!-- ============================ COMPONENT 1 ================================= -->
+
+<h4 class="text-center mb-10">Review your Book for yor library and confirm your books loan booking</h4>
+<div class="row">
+
+	<aside class="col-lg-9">
+
+    <div class="card">
+      <div class="card-header">
+        Payment :
+      </div>
+      <div class="card-body">
+        <p class="card-text">This Library provides all books to read free.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        Requester Information
+      </div>
+      <div class="card-body">
+        <p class="card-text">{{bookloan.full_name}}</p>
+        <p class="card-text">{{bookloan.email}}</p>
+        <p class="card-text">{{bookloan.phone}}</p>
+        {%if bookloan.bookloan_note%}
+        <p class="card-text"> <b>Note : </b>{{bookloan.bookloan_note}}</p>
+        {%endif%}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        Review Your Books:
+      </div>
+      <div class="card-body">
+
+        <table class="table table-borderless table-shopping-cart">
+        <thead class="text-muted">
+        <tr class="small text-uppercase">
+          <th scope="col">Books For Loan</th>
+          <th scope="col" width="200">Quantity</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+          {%for cart_item in cart_items%}
+        <tr>
+          <td>
+            <figure class="itemside align-items-center">
+              <div class="aside"><img src="{{cart_item.book.Images.url}}" width="25px" class="img-sm"></div>
+              <figcaption class="info">
+                <a href="{{cart_item.book.get_url}}" class="title text-dark">{{cart_item.book.book_title}}</a>
+                <p class="text-muted small">Author Name: {{cart_item.book.author_name}} <br>Publisher Name: {{cart_item.book.publisher_name}}</p>
+              </figcaption>
+            </figure>
+          </td>
+          <td>
+              <label for="">{{cart_item.quantity}}</label>
+
+          </td>
+
+        </tr>
+        {%endfor%}
+        </tbody>
+        </table>
+
+
+      </div>
+    </div>
+
+
+
+	</aside> <!-- col.// -->
+	<aside class="col-lg-3">
+
+		<div class="card">
+		<div class="card-body">
+			<div class="text-center">
+        <form action="{% url 'confirm_bookloan'%}" method="POST">
+          {%csrf_token%}
+            <input type="hidden" value="{{bookloan.bookloan_number}}" name="bookloan_number">
+			       <button type="submit" class="btn btn-primary" >Submit </button>
+      	<form>
+      </div>
+      <div class="text-center mt-2">
+			<a href="{% url 'bookstore'%}" class="btn btn-light btn-block">Back To All Books</a>
+      </div>
+
+
+    </div> <!-- card-body.// -->
+		</div> <!-- card.// -->
+
+</aside> <!-- col.// -->
+
+
+</div> <!-- row.// -->
+<!-- ============================ COMPONENT 1 END .// ================================= -->
+</div> <!-- container .//  -->
+
+<div style="height:150px">
+  </div>
+</section>
+
+{%endblock%}

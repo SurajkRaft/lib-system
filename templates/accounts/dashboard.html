@@ -1,0 +1,139 @@
+{%extends 'base.html'%}
+
+
+
+{%block content%}
+
+<!-- <header class="section-header">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light " style="background-color: #cad2c5;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Library Management System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+                <li class="nav-item ">
+                    <a class="nav-link active" aria-current="page" href="{%url 'bookstore'%}" >Book Reservation</a>
+                </li>
+
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search Books" aria-label="Search">
+                    <button class="btn btn-outline-dark" type="submit">Search</button>
+                </form>
+
+            </ul>
+
+
+
+             {% if user.id is None %}
+            <ul class="navbar-nav ms-auto">
+                <small class="title text-muted mt-3 text-black" style="color: black;">Welcome Guest!</small>
+                <li class="nav-item ms-auto">
+                    <a class="nav-link active" aria-current="page" href="{%url 'login'%}">
+                        <button type="button" class="btn btn-outline-dark"><i
+                                class="fa-solid fa-arrow-right-to-bracket"></i> Log In</button>
+                    </a>
+                </li>
+
+                <li class="nav-item ms-auto">
+                    <a class="nav-link active" aria-current="page" href="{%url 'register'%}"><button type="button"
+                            class="btn btn-outline-dark ">Register</button></a>
+                </li>
+
+            </ul>
+            {% else %}
+            <ul class="navbar-nav ms-auto">
+                <small class="title text-muted mt-3 text-black" style="color: black;">Welcome {{user.first_name}}!</small>
+
+                <li class="nav-item ms-auto">
+                    <a class="nav-link active" aria-current="page" href="{%url 'dashboard'%}">
+                        <button type="button" class="btn btn-outline-dark"><i
+                                class="fa-solid"></i>Dashboard</button>
+                    </a>
+                </li>
+
+
+                <li class="nav-item ms-auto">
+                    <a class="nav-link active" aria-current="page" href="{%url 'view_profile'%}">
+                        <button type="button" class="btn btn-outline-dark"><i
+                                class="fa-solid"></i>Profile</button>
+                    </a>
+                </li>
+
+                <li class="nav-item ms-auto">
+                    <a class="nav-link active" aria-current="page" href="{%url 'logout'%}"><button type="button"
+                            class="btn btn-outline-dark ">Logout</button></a>
+                </li>
+
+            </ul>
+
+            {% endif %}
+            <a href="{%url 'cart'%}" class="btn btn-outline-dark ml-3">
+              Cart
+              <span class="badge badge-pill badge-danger notify">{{cart_count}}</span>
+            </a>
+
+
+
+
+        </div>
+    </div>
+</nav>
+
+</header> -->
+
+<div class="container" style="margin-top:200px">
+	<div class="row">
+    {% include 'includes/alerts.html'%}
+
+    {% include 'includes/dashboard_sidebar.html'%}
+	<main class="col-md-9">
+		<article class="card">
+		<header class="card-header" style="background-color: #cad2c5;">
+			<strong class="d-inline-block mr-3">Logged In as :</strong>
+			<span>{{user.first_name}}</span>
+		</header>
+		<div class="card-body">
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="card" style="text-align:center;">
+            <div class="card-body">
+                <h5 class="card-title">Total book loaned</h5>
+                 <h4>{{bookloan_count}}</h4>
+                 <a href="{% url 'my_books_ordered' %}">View Total Loan</a>
+              </div>
+          </div>
+          </div>
+
+
+                  <div class="col-md-6">
+                    <div class="card" style="text-align:center;">
+                      <div class="card-body">
+                          <img src="{{userprofile.profile_picture.url}}" alt="User Profile Picture" width="25" height="25" style="border-radius:50%;" />
+                          <p class="mb-0">{{user.email}}</p>
+                          <p >{{user.phone_number}}</p>
+                      </div>
+                    </div>
+                    </div>
+
+        </div>
+
+
+	   <div>
+</article>
+
+	</main>
+</div> <!-- row.// -->
+
+<div style="height:150px">
+  </div>
+</div>
+
+
+{%endblock%}

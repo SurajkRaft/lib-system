@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+
+{%load static%}
+
+{%block content%}
+
+
+<div >
+
+<h1 align="center" style="height:150px">Welcom To Cardiff Library</h1>
+
+
+  </div>
+
+      <div class="container mt-4">
+
+        <div class="intro-banner-wrap">
+          <img src="{% static 'images/banners/1.jpeg'%}" class="img-fluid rounded" />
+        </div>
+      </div>
+      <!-- container //  -->
+
+<!-- <div class="row">
+  {% for book in books %}
+
+   <div class="col-md-3">
+     <a href=""> <img src="{{book.Images.url}}" alt="Book Image"/> Book</a>
+     <figcaption class="info-wrap">
+       <a>{{book.book_title}}</a>
+     </figcaption>
+     </div>
+{%endfor%}
+  </div> -->
+
+</body>
+
+</html>
+{%endblock%}

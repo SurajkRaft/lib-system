@@ -1,0 +1,77 @@
+is_cart_item_exists = CartItem.objects.filter(book=book, cart=cart).exists()
+    if is_cart_item_exists:
+        cart_item = CartItem.objects.filter(book=book, cart=cart)
+            #existing variations
+            #current book variations
+            # item id : from database
+        ex_var_list = []
+        id=[]
+        for item in cart_item:
+            existing_variations = item.variations.all()
+            ex_var_list.append(list(existing_variations))
+            id.append(item.id)
+
+        if book_variation in ex_var_list:
+                # increase the cart item quantity
+            index = ex_var_list.index(book_variation)
+            item_id = id[index]
+            item =CartItem.objects.get(book=book, id=item_id)
+            item.quantity+=1
+            item.save()
+        else:
+            item = CartItem.objects.create(book=book, quantity=1, cart=cart)
+            if len(book_variation) > 0:
+                item.variations.clear()
+                item.variations.add(*book_variation)
+            item.save()
+    else:
+        cart_item = CartItem.objects.create(
+            book = book,
+            quantity = 1,
+            cart = cart,
+        )
+        if len(book_variation) > 0:
+            cart_item.variations.clear()
+            cart_item.variations.add(*book_variation)
+        cart_item.save()
+    
+
+book= Book.objects.get(id=book_id)
+    book_variation = []
+    if request.method =='POST':
+        for item in request.POST:
+            key = item
+            value = request.POST[key]
+            try:
+                variation = Variation.objects.get(book=book,variation_category__iexact=key, variation_value__iexact=value)
+                book_variation.append(variation)
+            except:
+                pass
+    try:
+        # get the cart  using cart id  present in the session
+        cart = Cart.objects.get(cart_id = _cart_id(request))
+    except Cart.DoesNotExist:
+        cart = Cart.objects.create(
+        cart_id = _cart_id(request)
+        )
+    cart.save()
+    try:
+        cart_item =CartItem.objects.get(book=book,cart=cart)
+        if len(book_variation)>0:
+            cart_item.variations.clear()
+            for item in book_variation:
+                cart_item.variations.add(item)
+        cart_item.quantity+=1
+        cart_item.save()
+    except CartItem.DoesNotExist:
+        cart_item = CartItem.objects.create(
+            book=book,
+            quantity=1,
+            cart = cart,
+        )
+        if len(book_variation) > 0:
+            cart_item.variations.clear()
+            for item in book_variation:
+                cart_item.variations.add(item)
+        cart_item.save()
+    return redirect('cart')
